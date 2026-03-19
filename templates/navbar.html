@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold text-primary" href="{% url 'product_list' %}">
+      🛍️ MyShop
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+      <!-- Search Bar -->
+      <form class="d-flex mx-auto w-50" method="GET" action="{% url 'product_list' %}">
+        <div class="input-group">
+          <input 
+            class="form-control rounded-start-pill border-end-0" 
+            type="search" 
+            name="search"
+            placeholder="Search for products..."
+            value="{{ request.GET.search }}"
+          >
+          <button class="btn btn-primary rounded-end-pill px-4">
+            🔍
+          </button>
+        </div>
+      </form>
+
+      <!-- Right Side -->
+      <div class="d-flex align-items-center gap-2">
+
+        {% if user.is_authenticated %}
+          <span class="fw-medium text-dark">
+            👋 {{ user.username }}
+          </span>
+
+          <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-outline-success btn-sm">
+            Login
+          </a>
+          <a href="{% url 'register' %}" class="btn btn-primary btn-sm">
+            Register
+          </a>
+        {% endif %}
+
+        <!-- Cart -->
+        <a href="{% url 'cart_detail' %}" class="btn btn-warning position-relative">
+          🛒
+          <span class="ms-1">Cart</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+</nav>
